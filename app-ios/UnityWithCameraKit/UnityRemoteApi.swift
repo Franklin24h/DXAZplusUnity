@@ -29,13 +29,17 @@ class UnityRemoteApiService: NSObject, LensRemoteApiService {
         if (request.endpointId == "unity_send_data") {
             DispatchQueue.main.async {
                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                appDelegate.unityFramework?.sendMessageToGO(withName: "CameraKitHandler", functionName: "MessageResponseFromLens", message: request.parameters["unityData"])
+                #if canImport(UnityFramework)
+appDelegate.unityFramework?.sendMessageToGO(withName: "CameraKitHandler", functionName: "MessageResponseFromLens", message: request.parameters["unityData"])
+#endif
             }
             return IgnoredRemoteApiServiceCall()
         } else if (request.endpointId == "unity_request_state") {
             DispatchQueue.main.async {
                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                appDelegate.unityFramework?.sendMessageToGO(withName: "CameraKitHandler", functionName: "MessageLensRequestedState", message: "")
+                #if canImport(UnityFramework)
+appDelegate.unityFramework?.sendMessageToGO(withName: "CameraKitHandler", functionName: "MessageLensRequestedState", message: "")
+#endif
             }
             return LensRequestStateApiServiceCall(responseHandler: responseHandler, request: request)
         }

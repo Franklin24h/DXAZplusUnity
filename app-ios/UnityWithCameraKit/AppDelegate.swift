@@ -8,11 +8,13 @@
 import SCSDKCameraKit
 import SCSDKCameraKitReferenceUI
 import UIKit
+#if canImport(UnityFramework)
 import UnityFramework
+#endif
 import CoreLocation
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate, UnityFrameworkListener {
+class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     fileprivate var supportedOrientations: UIInterfaceOrientationMask = .allButUpsideDown
@@ -24,54 +26,89 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UnityFrameworkListener {
     var didQuit: Bool = false
     var locationManager: CLLocationManager?
 
-
+#if canImport(UnityFramework)
     @objc public var unityFramework: UnityFramework?
+#endif
 
     func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
+        
+        ///PARCHE 1INICIO
+        window = UIWindow(frame: UIScreen.main.bounds)
+
+        let vc = UIViewController()
+        vc.view.backgroundColor = .systemRed
+
+        let label = UILabel()
+        label.text = "DXAZ DEBUG"
+        label.textColor = .white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        vc.view.addSubview(label)
+        NSLayoutConstraint.activate([
+          label.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor),
+          label.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor)
+        ])
+
+        window?.rootViewController = vc
+        window?.makeKeyAndVisible()
+        ///PARCHE 1 FIN
+        
+#if canImport(UnityFramework)
         unityFramework = getUnityFramework()
 
-        appLaunchOpts = launchOptions
 
+#endif
+        //PARCHES 2 INICIO
         let storyboard = UIStoryboard(name: "Main", bundle: .main)
-        let viewController = storyboard.instantiateViewController(withIdentifier: "Host")
 
-//        self.window = UIWindow.init(frame: UIScreen.main.bounds)
-
-        if let nativeWindow = window {
-            nativeWindow.rootViewController = viewController
-            nativeWindow.makeKeyAndVisible()
+        guard let root = storyboard.instantiateInitialViewController() else {
+          fatalError("Main.storyboard NO tiene Initial View Controller (falta la flecha).")
         }
-        
-        initUnity()
 
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = root
+        window?.makeKeyAndVisible()
+                
+        #if canImport(UnityFramework)
+                initUnity()
+        #endif
+
+        //PARCHES 2 FIN
         return true
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
+#if canImport(UnityFramework)
         if let unityFramework {
             unityFramework.appController()?.applicationWillResignActive(application)
         }
+#endif
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
+#if canImport(UnityFramework)
         if let unityFramework {
             unityFramework.appController()?.applicationDidEnterBackground(application)
         }
+#endif
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
+#if canImport(UnityFramework)
         if let unityFramework {
             unityFramework.appController()?.applicationWillEnterForeground(application)
         }
+#endif
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
+#if canImport(UnityFramework)
         if let unityFramework {
             unityFramework.appController()?.applicationDidBecomeActive(application)
         }
+#endif
     }
 
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
@@ -79,11 +116,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UnityFrameworkListener {
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
+#if canImport(UnityFramework)
         if let unityFramework {
             unityFramework.appController()?.applicationWillTerminate(application)
         }
+#endif
     }
 
+#if canImport(UnityFramework)
     // MARK: Unity API
 
     private func getUnityFramework() -> UnityFramework? {
@@ -195,6 +235,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UnityFrameworkListener {
         unloadUnityInternal()
         didQuit = true
     }
+#endif
 }
 
 extension AppDelegate: AppOrientationDelegate {
@@ -207,7 +248,7 @@ extension AppDelegate: AppOrientationDelegate {
     }
 }
 
-extension AppDelegate: NativeCallsProtocol {
+extension AppDelegate {
     func invokeCameraKit(
         withLens lensId: String!,
         withGroupID groupId: String!,
@@ -219,15 +260,42 @@ extension AppDelegate: NativeCallsProtocol {
         withUnloadLensOption unloadLens: Bool
     ) {
         
+        print("✅ invokeCameraKit() lensId:", lensId ?? "nil")
+        print("✅ invokeCameraKit() groupId:", groupId ?? "nil")
+        
+        
         let cameraController = UnityCameraController()
         
         if (cameraViewController == nil) {
             cameraViewController = UnityCameraViewController(cameraController: cameraController)
         }
-        
-        cameraController.cameraKit.lenses.repository.addObserver(cameraViewController!, specificLensID: lensId, inGroupID: groupId)
-        cameraController.cameraKit.lenses.repository.addObserver(cameraViewController!, groupID: groupId)
-                
+        // ===== OBSERVER (UNICO) INICIO =====
+
+        // 1) Limpia estado anterior (importante al cambiar lens)
+        cameraViewController?.applyLensId = nil
+        cameraViewController?.applyGroupId = nil
+
+        // 2) Siempre observa el grupo
+        cameraController.cameraKit.lenses.repository.addObserver(
+            cameraViewController!,
+            groupID: groupId
+        )
+        cameraViewController?.applyGroupId = groupId
+
+        // 3) Si hay lensId => observa/aplica SOLO esa lens
+        if let lensId = lensId, !lensId.isEmpty {
+            cameraController.cameraKit.lenses.repository.addObserver(
+                cameraViewController!,
+                specificLensID: lensId,
+                inGroupID: groupId
+            )
+            cameraViewController?.applyLensId = lensId
+        } else {
+            cameraViewController?.applyLensId = nil
+        }
+
+        // ===== OBSERVER (UNICO) FIN =====
+    
         cameraViewController?.appOrientationDelegate = self
         cameraViewController?.applyLensId = lensId;
         cameraViewController?.applyGroupId = groupId;
@@ -242,8 +310,7 @@ extension AppDelegate: NativeCallsProtocol {
         } else {
             invokeCameraKitAsModalFullScreen()
         }
-
-        
+    
         if (shutterButtonMode == Constants.ShutterButtonMode.On) {
             cameraViewController?.cameraView.cameraButton.isHidden = false
         } else if (shutterButtonMode == Constants.ShutterButtonMode.Off) {
@@ -259,18 +326,29 @@ extension AppDelegate: NativeCallsProtocol {
     }
     
     func invokeCameraKitAsModalFullScreen() {
-        
+#if canImport(UnityFramework)
         unityFramework?.pause(true)
-        
+#endif
+       // OPEN CAMARA INICIO
         let navVC = UINavigationController(rootViewController: cameraViewController!)
         navVC.modalPresentationStyle = .fullScreen
-        unityFramework?.appController().rootViewController.present(navVC, animated: true);
+        // Presentar SIEMPRE la UI de Camera Kit (sin depender de UnityFramework)
+        if let root = window?.rootViewController {
+            root.present(navVC, animated: true)
+        } else {
+            print("❌ No window.rootViewController para presentar Camera Kit")
+        }
+        
+        //OPEN CAMARA FINAL
+        
         cameraViewController?.hideCameraUiControls(hide: false);
     }
 
     func invokeCameraKitAsBackgroundLayer() {
         if let nativeWindow = window {
+#if canImport(UnityFramework)
             unityFramework?.appController().rootView.backgroundColor = UIColor.black.withAlphaComponent(0.0);
+#endif
             nativeWindow.rootViewController?.add(cameraViewController!, frame: UIScreen.main.bounds)
         }
         cameraViewController?.hideCameraUiControls(hide: true);
@@ -281,7 +359,9 @@ extension AppDelegate: NativeCallsProtocol {
     }
     
     func dismissCameraKit() {
+#if canImport(UnityFramework)
         unityFramework?.appController().rootView.backgroundColor = UIColor.black;
+#endif
         cameraViewController?.remove();
     }
 }
@@ -334,8 +414,10 @@ class UnityCameraViewController: CameraViewController  {
     override open func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
+#if canImport(UnityFramework)
         appDelegate.unityFramework?.pause(false)
         appDelegate.unityFramework?.sendMessageToGO(withName: "CameraKitHandler", functionName: "MessageCameraKitDismissed", message:"")
+#endif
     }
     
     override open func viewDidDisappear(_ animated: Bool) {
@@ -391,7 +473,9 @@ class UnityCameraController: CameraController {
             }
             DispatchQueue.main.async {
                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
+#if canImport(UnityFramework)
                 appDelegate.unityFramework?.sendMessageToGO(withName: "CameraKitHandler", functionName: "MessageCameraKitCaptureResult", message: pathToSavedImage)
+#endif
                 appDelegate.cameraViewController?.dismiss(animated: true)
             }
         })
@@ -402,7 +486,9 @@ class UnityCameraController: CameraController {
         super.finishRecording(completion: {url, error in
             DispatchQueue.main.async {
                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
+#if canImport(UnityFramework)
                 appDelegate.unityFramework?.sendMessageToGO(withName: "CameraKitHandler", functionName:  "MessageCameraKitCaptureResult", message: url?.absoluteString)
+#endif
                 appDelegate.cameraViewController?.dismiss(animated: true)
             }
         })
@@ -430,36 +516,35 @@ class UnityCameraController: CameraController {
     }
 }
 
-
 extension UnityCameraViewController: LensRepositorySpecificObserver, LensRepositoryGroupObserver {
-    func repository(_ repository: LensRepository, didUpdateLenses lenses: [Lens], forGroupID groupID: String) {
-        print("Loaded group " + groupID)
-        cameraController.cameraKit.lenses.prefetcher.prefetch(lenses: lenses)
-    }
 
-    func repository(_ repository: LensRepository, didFailToUpdateLensesForGroupID groupID: String, error: Error?) {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.unityFramework?.sendMessageToGO(withName: "CameraKitHandler", functionName: "MessageCameraKitInitFailed", message:"Failed to upload lenses")
-        print("Failed to update lenses")
+  func repository(_ repository: LensRepository, didUpdateLenses lenses: [Lens], forGroupID groupID: String) {
+    print("✅ didUpdateLenses groupID:", groupID, "count:", lenses.count)
+    for (i, lens) in lenses.enumerated() {
+        print("  [\(i)] id: \(lens.id) name: \(lens.name ?? "nil")")
     }
+  }
 
-    func repository(_ repository: LensRepository, didUpdate lens: Lens, forGroupID groupID: String) {
-        print("Loaded lens " + lens.id)
-    }
-    
-    func repository(
-        _ repository: LensRepository,
-        didFailToUpdateLensID lensID: String,
-        forGroupID groupID: String,
-        error: Error?
-    ) {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.unityFramework?.sendMessageToGO(withName: "CameraKitHandler", functionName: "MessageCameraKitInitFailed", message:"Error loading lens " + lensID)
-        print("Error loading lens " + lensID)
-    }
-    
+  func repository(_ repository: LensRepository, didFailToUpdateLensesForGroupID groupID: String, error: Error?) {
+      print("❌ didFailToUpdateLensesForGroupID groupID:", groupID)
+      if let error = error {
+        print("   error:", error)
+        print("   localized:", error.localizedDescription)
+      } else {
+        print("   error: nil")
+      }
+  }
+
+  func repository(_ repository: LensRepository, didUpdate lens: Lens, forGroupID groupID: String) {
+    print("✅ didUpdate lens:", lens.id, "name:", lens.name, "groupID:", groupID)
+  }
+
+  func repository(_ repository: LensRepository, didFailToUpdateLensID lensID: String, forGroupID groupID: String, error: Error?) {
+    print("❌ didFailToUpdateLensID lensID:", lensID, "groupID:", groupID, "error:", error ?? "nil")
+  }
 }
 
+        // OJO CON ESTA PARTE FIN
 @nonobjc extension UIViewController {
     func add(_ child: UIViewController, frame: CGRect? = nil) {
         addChild(child)
@@ -467,9 +552,11 @@ extension UnityCameraViewController: LensRepositorySpecificObserver, LensReposit
         if let frame = frame {
             child.view.frame = frame
         }
+        // OJO CON ESTA PARTE FIN
 
+        //        view.addSubview(child.view)
+  
         view.insertSubview(child.view, at: 1)
-//        view.addSubview(child.view)
         child.didMove(toParent: self)
     }
     

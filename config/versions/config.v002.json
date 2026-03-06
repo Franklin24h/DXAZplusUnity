@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "updatedAt": "2026-03-05T23:42:36Z",
+  "lensGroupId": "1a1edb69-75f3-4d74-b97d-a6983c3d992b",
+  "routing": {
+    "debounceMs": 400,
+    "cooldownMs": 1200,
+    "defaultBehavior": "search"
+  },
+  "routes": [
+    {
+      "markerId": "DXAZplusUN",
+      "lensId": "3234641f-0072-477d-8084-0ff44be5f0fd",
+      "enabled": true,
+      "priority": 10
+    }
+  ]
+}

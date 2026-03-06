@@ -66,7 +66,7 @@ class UnityUIView: UIView {
     @objc
     func unloadButtonTouched(sender: UIButton) {
         if let delegate {
-            delegate.unloadButtonTouched(sender)
+ //           delegate.unloadButtonTouched(sender)
         } else {
         }
     }
@@ -74,7 +74,7 @@ class UnityUIView: UIView {
     @objc
     func quitButtonTouched(sender: UIButton) {
         if let delegate {
-            delegate.quitButtonTouched(sender)
+//            delegate.quitButtonTouched(sender)
         } else {
         }
     }

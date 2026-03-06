@@ -10,9 +10,9 @@
 		13D1DAEEFAE4B621C7D78830 /* Pods_UnityWithCameraKit_UnityWithCameraKitUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8073585A518610C56D7F1F81 /* Pods_UnityWithCameraKit_UnityWithCameraKitUITests.framework */; };
 		495B9FC7272D650700370A17 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495B9FC6272D650700370A17 /* AppDelegate.swift */; };
 		495B9FCB272D650700370A17 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495B9FCA272D650700370A17 /* ViewController.swift */; };
-		495B9FCE272D650700370A17 = {isa = PBXBuildFile; fileRef = 495B9FCC272D650700370A17 /* Main.storyboard */; };
+		495B9FCE272D650700370A17 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 495B9FCC272D650700370A17 /* Main.storyboard */; };
 		495B9FD0272D650800370A17 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 495B9FCF272D650800370A17 /* Assets.xcassets */; };
-		495B9FD3272D650800370A17 = {isa = PBXBuildFile; fileRef = 495B9FD1272D650800370A17 /* LaunchScreen.storyboard */; };
+		495B9FD3272D650800370A17 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 495B9FD1272D650800370A17 /* LaunchScreen.storyboard */; };
 		495B9FDE272D650800370A17 /* UnitySwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495B9FDD272D650800370A17 /* UnitySwiftTests.swift */; };
 		495B9FE8272D650800370A17 /* UnitySwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495B9FE7272D650800370A17 /* UnitySwiftUITests.swift */; };
 		495B9FEA272D650800370A17 /* UnitySwiftUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495B9FE9272D650800370A17 /* UnitySwiftUITestsLaunchTests.swift */; };
@@ -20,7 +20,6 @@
 		49C04C50276B043300B5E378 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C04C4F276B043300B5E378 /* Constants.swift */; };
 		49C04C54276B048A00B5E378 /* UnityUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C04C53276B048A00B5E378 /* UnityUIView.swift */; };
 		57D61F1D9FC8D9A9F04D9C57 /* Pods_UnityWithCameraKitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30E9AE7479DC5D3D603ADA62 /* Pods_UnityWithCameraKitTests.framework */; };
-		DC35C66D2928FFA0005608B1 /* UnityFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 49C04C3F276AFBD900B5E378 /* UnityFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DCF092702992BB7800D06E54 /* UnityRemoteApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF0926F2992BB7800D06E54 /* UnityRemoteApi.swift */; };
 		E276A0CAAF453F9FAA3A53AB /* Pods_UnityWithCameraKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1085C180B8003D26103DD596 /* Pods_UnityWithCameraKit.framework */; };
 /* End PBXBuildFile section */
@@ -49,7 +48,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DC35C66D2928FFA0005608B1 /* UnityFramework.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -206,12 +204,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 495B9FED272D650800370A17 /* Build configuration list for PBXNativeTarget "UnityWithCameraKit" */;
 			buildPhases = (
-				22F2E964AD35B6C6B8F59AE8 /* ShellScript */,
+				22F2E964AD35B6C6B8F59AE8 /* [CP] Check Pods Manifest.lock */,
 				495B9FBF272D650700370A17 /* Sources */,
 				495B9FC0272D650700370A17 /* Frameworks */,
 				495B9FC1272D650700370A17 /* Resources */,
 				DC35C66E2928FFA0005608B1 /* Embed Frameworks */,
-				83C98AB6B6112AFE78731967 /* ShellScript */,
+				83C98AB6B6112AFE78731967 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -226,7 +224,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 495B9FF0272D650800370A17 /* Build configuration list for PBXNativeTarget "UnityWithCameraKitTests" */;
 			buildPhases = (
-				B43A26FB5463EFD9BF9D6A5B /* ShellScript */,
+				B43A26FB5463EFD9BF9D6A5B /* [CP] Check Pods Manifest.lock */,
 				495B9FD5272D650800370A17 /* Sources */,
 				495B9FD6272D650800370A17 /* Frameworks */,
 				495B9FD7272D650800370A17 /* Resources */,
@@ -245,11 +243,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 495B9FF3272D650800370A17 /* Build configuration list for PBXNativeTarget "UnityWithCameraKitUITests" */;
 			buildPhases = (
-				38D6704551905A119F47D5F2 /* ShellScript */,
+				38D6704551905A119F47D5F2 /* [CP] Check Pods Manifest.lock */,
 				495B9FDF272D650800370A17 /* Sources */,
 				495B9FE0272D650800370A17 /* Frameworks */,
 				495B9FE1272D650800370A17 /* Resources */,
-				34AFC3494881EE9BD591D7EA /* ShellScript */,
+				34AFC3494881EE9BD591D7EA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -285,7 +283,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 495B9FBE272D650700370A17 /* Build configuration list for PBXProject "Unity-iPhone" */;
+			buildConfigurationList = 495B9FBE272D650700370A17 /* Build configuration list for PBXProject "UnityWithCameraKit" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -294,7 +292,7 @@
 				Base,
 			);
 			mainGroup = 495B9FBA272D650700370A17;
-			productRefGroup = 495B9FC4272D650700370A17;
+			productRefGroup = 495B9FC4272D650700370A17 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -310,9 +308,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				495B9FD3272D650800370A17,
+				495B9FD3272D650800370A17 /* LaunchScreen.storyboard in Resources */,
 				495B9FD0272D650800370A17 /* Assets.xcassets in Resources */,
-				495B9FCE272D650700370A17,
+				495B9FCE272D650700370A17 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -333,7 +331,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		22F2E964AD35B6C6B8F59AE8 /* ShellScript */ = {
+		22F2E964AD35B6C6B8F59AE8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -355,7 +353,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		34AFC3494881EE9BD591D7EA /* ShellScript */ = {
+		34AFC3494881EE9BD591D7EA /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -372,7 +370,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UnityWithCameraKit-UnityWithCameraKitUITests/Pods-UnityWithCameraKit-UnityWithCameraKitUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		38D6704551905A119F47D5F2 /* ShellScript */ = {
+		38D6704551905A119F47D5F2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -394,7 +392,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		83C98AB6B6112AFE78731967 /* ShellScript */ = {
+		83C98AB6B6112AFE78731967 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -411,7 +409,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UnityWithCameraKit/Pods-UnityWithCameraKit-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B43A26FB5463EFD9BF9D6A5B /* ShellScript */ = {
+		B43A26FB5463EFD9BF9D6A5B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -619,7 +617,7 @@
 		};
 		495B9FEE272D650800370A17 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B2E48579F318FA7AD3E32B5;
+			baseConfigurationReference = 3B2E48579F318FA7AD3E32B5 /* Pods-UnityWithCameraKit.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -627,9 +625,12 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 424M5254LK;
+				DEVELOPMENT_TEAM = RW3F5KHFQF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = UnityWithCameraKit/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs to use the camera for AR features";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app needs to use your location for AR features";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app needs to use the microphone for AR features";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -641,7 +642,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.snap.camerakitsamples.unity;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dxazplus.ckunity;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -654,7 +655,7 @@
 		};
 		495B9FEF272D650800370A17 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 20C0CA2EB306C75778CA37F4;
+			baseConfigurationReference = 20C0CA2EB306C75778CA37F4 /* Pods-UnityWithCameraKit.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -662,9 +663,12 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 424M5254LK;
+				DEVELOPMENT_TEAM = RW3F5KHFQF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = UnityWithCameraKit/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs to use the camera for AR features";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app needs to use your location for AR features";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app needs to use the microphone for AR features";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -676,7 +680,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.snap.camerakitsamples.unity;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dxazplus.ckunity;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -688,7 +692,7 @@
 		};
 		495B9FF1272D650800370A17 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 46E6D5447B49F6E56A22E432;
+			baseConfigurationReference = 46E6D5447B49F6E56A22E432 /* Pods-UnityWithCameraKitTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -714,7 +718,7 @@
 		};
 		495B9FF2272D650800370A17 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F4E6E73744916391661E94A3;
+			baseConfigurationReference = F4E6E73744916391661E94A3 /* Pods-UnityWithCameraKitTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -740,7 +744,7 @@
 		};
 		495B9FF4272D650800370A17 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 14915FD59BA3917447E66E0B;
+			baseConfigurationReference = 14915FD59BA3917447E66E0B /* Pods-UnityWithCameraKit-UnityWithCameraKitUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -764,7 +768,7 @@
 		};
 		495B9FF5272D650800370A17 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5DFCF5CFA1303D90EBDAE472;
+			baseConfigurationReference = 5DFCF5CFA1303D90EBDAE472 /* Pods-UnityWithCameraKit-UnityWithCameraKitUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -789,7 +793,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		495B9FBE272D650700370A17 /* Build configuration list for PBXProject "Unity-iPhone" */ = {
+		495B9FBE272D650700370A17 /* Build configuration list for PBXProject "UnityWithCameraKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				495B9FEB272D650800370A17 /* Debug */,
